@@ -8,7 +8,7 @@ namespace AdventOfCode.Day1
     {
         public void ExecuteTask()
         {
-            string path = @"D:\TempProjects\AdventOfCode\AdventOfCode\Day1\nums.txt";
+            string path = @".Day1\nums.txt";
             int[] numbers = NumberSearcher.ReadNumbers(path);
             int[] result = NumberSearcher.Find3Numbers(numbers, 2020);
 

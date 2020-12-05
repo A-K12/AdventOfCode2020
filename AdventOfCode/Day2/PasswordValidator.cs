@@ -8,7 +8,7 @@ namespace AdventOfCode.Day2
     {
         public void ExecuteTask()
         {
-            string path = @"D:\TempProjects\AdventOfCode\AdventOfCode\Day2\data.txt";
+            string path = @".\Day2\data.txt";
             string[] lines = PasswordValidator.ReadLines(path);
             int count = 0;
             foreach (string line in lines)

@@ -24,7 +24,7 @@ namespace AdventOfCode.Day3
 
         public void ExecuteTask()
         {
-            string path = @"D:\TempProjects\AdventOfCode\AdventOfCode\Day3\data.txt";
+            string path = @".\Day3\data.txt";
             Coordinator[] coordinators =
             {
                 new Coordinator(stepsRight: 1, stepsDown: 1),
