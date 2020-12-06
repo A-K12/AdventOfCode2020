@@ -54,6 +54,7 @@ namespace AdventOfCode.Day4
                     if (match.Count != 1)
                     {
                         check = false;
+                        break;
                     }
                 }
 
