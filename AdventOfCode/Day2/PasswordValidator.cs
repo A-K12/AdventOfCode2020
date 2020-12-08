@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 
-namespace AdventOfCode.Day2
+namespace AdventOfCode2020.Day2
 {
     internal class PasswordValidator:ITask
     {

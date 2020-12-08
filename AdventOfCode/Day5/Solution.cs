@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace AdventOfCode.Day5
+namespace AdventOfCode2020.Day5
 {
     public class Solution:ITask
     {

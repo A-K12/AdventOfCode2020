@@ -1,4 +1,4 @@
-﻿namespace AdventOfCode.Day3
+﻿namespace AdventOfCode2020.Day3
 {
     public interface ICoordinator
     {

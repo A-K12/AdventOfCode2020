@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 
-namespace AdventOfCode.Day3
+namespace AdventOfCode2020.Day3
 {
     public class TreesCounter : ITask
     {

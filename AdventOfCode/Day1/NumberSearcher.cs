@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 
-namespace AdventOfCode.Day1
+namespace AdventOfCode2020.Day1
 {
     public class NumberSearcher:ITask
     {

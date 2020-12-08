@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using AdventOfCode;
 
-namespace AdventOfCode.Day6
+namespace AdventOfCode2020.Day6
 {
     class Solution:ITask
     {

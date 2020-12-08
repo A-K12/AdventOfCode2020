@@ -1,9 +1,8 @@
 ﻿using System;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 
-namespace AdventOfCode.Day4
+namespace AdventOfCode2020.Day4
 {
     public class Solution : ITask
     {

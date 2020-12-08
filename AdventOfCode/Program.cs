@@ -1,20 +1,11 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
-using AdventOfCode;
-
-namespace AdventOfCode
+﻿namespace AdventOfCode2020
 {
 
   internal class Program
     {
         private static void Main(string[] args)
         {
-            var solution = new Day6.Solution();
+            var solution = new Day8.Solution();
             solution.ExecuteTask();
         }
     }
