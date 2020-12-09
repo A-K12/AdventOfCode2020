@@ -15,15 +15,16 @@ namespace AdventOfCode2020.Day1
             Console.Out.WriteLine("result = {0}", result.Aggregate((a, b) => a * b));
         }
 
-        public static int[] Find2Numbers(int[] nums, int sum)
+        public static long[] Find2Numbers(long[] nums1, long sum)
         {
+            long[] nums = (long[]) nums1.Clone();
             Array.Sort(nums);
 
             int first = 0;
             int last = nums.Length - 1;
             while (first < last)
             {
-                int s = nums[first] + nums[last];
+                long s = nums[first] + nums[last];
                 if (s == sum) return new[] {nums[first], nums[last]};
 
                 if (s < sum)
@@ -32,7 +33,7 @@ namespace AdventOfCode2020.Day1
                     last--;
             }
 
-            throw new Exception("Numbers not found");
+            return null;
         }
 
         public static int[] Find3Numbers(int[] numbers, int sum)
