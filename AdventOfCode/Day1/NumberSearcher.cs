@@ -4,28 +4,19 @@ using System.Linq;
 
 namespace AdventOfCode2020.Day1
 {
-    public class NumberSearcher:ITask
+    public static class NumberSearcher
     {
-        public void ExecuteTask()
-        {
-            string path = @".Day1\nums.txt";
-            int[] numbers = NumberSearcher.ReadNumbers(path);
-            int[] result = NumberSearcher.Find3Numbers(numbers, 2020);
 
-            Console.Out.WriteLine("result = {0}", result.Aggregate((a, b) => a * b));
-        }
-
-        public static long[] Find2Numbers(long[] nums1, long sum)
+        public static long[] Find2Numbers(long[] numbers, long sum)
         {
-            long[] nums = (long[]) nums1.Clone();
-            Array.Sort(nums);
+            Array.Sort(numbers);
 
             int first = 0;
-            int last = nums.Length - 1;
+            int last = numbers.Length - 1;
             while (first < last)
             {
-                long s = nums[first] + nums[last];
-                if (s == sum) return new[] {nums[first], nums[last]};
+                long s = numbers[first] + numbers[last];
+                if (s == sum) return new[] {numbers[first], numbers[last]};
 
                 if (s < sum)
                     first++;
@@ -36,10 +27,9 @@ namespace AdventOfCode2020.Day1
             return null;
         }
 
-        public static int[] Find3Numbers(int[] numbers, int sum)
+        public static long[] Find3Numbers(long[] numbers, long sum)
         {
             Array.Sort(numbers);
-
 
             for (int i = 0; i < numbers.Length - 2; i++)
             {
@@ -48,7 +38,7 @@ namespace AdventOfCode2020.Day1
 
                 while (first < last)
                 {
-                    int s = numbers[first] + numbers[last] + numbers[i];
+                    long s = numbers[first] + numbers[last] + numbers[i];
                     if (s == sum)
                     {
                         return new[] {numbers[first], numbers[last], numbers[i]};
@@ -61,21 +51,10 @@ namespace AdventOfCode2020.Day1
                 }
             }
 
-            throw new Exception("Numbers not found");
+            return null;
         }
 
-        public static int[] ReadNumbers(string path)
-        {
-            string input;
-            using (StreamReader sr = new StreamReader(path))
-            {
-                input = sr.ReadToEnd();
-            }
-
-            string[] lines = input.Split(new[] {'\r', '\n'}, StringSplitOptions.RemoveEmptyEntries);
-
-            return lines.Select(int.Parse).ToArray();
-        }
+   
 
     }
 }

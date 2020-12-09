@@ -9,14 +9,15 @@ namespace AdventOfCode2020.Day2
         public void ExecuteTask()
         {
             string path = @".\Day2\data.txt";
-            string[] lines = PasswordValidator.ReadLines(path);
-            int count = 0;
-            foreach (string line in lines)
-            {
-                count += PasswordValidator.ValidateV2(line) ? 1 : 0;
-            }
+            string[] lines = File.ReadAllLines(path);
 
-            Console.Out.WriteLine("count = {0}", count);
+            int count = lines.Count(PasswordValidator.ValidateV1);
+
+            Console.Out.WriteLine("Answer 1 = {0}", count);
+            
+            count = lines.Count(PasswordValidator.ValidateV2);
+
+            Console.Out.WriteLine("Answer 2 = {0}", count);
         }
 
         public static bool IsValid(int min, int max, char letter, string password)
@@ -49,13 +50,5 @@ namespace AdventOfCode2020.Day2
             return password[first] == letter != (password[second] == letter);
         }
 
-        public static string[] ReadLines(string path)
-        {
-            using StreamReader sr = new StreamReader(path);
-            string input = sr.ReadToEnd();
-            string[] lines = input.Split(new[] {'\r', '\n'}, StringSplitOptions.RemoveEmptyEntries);
-
-            return lines;
-        }
     }
 }

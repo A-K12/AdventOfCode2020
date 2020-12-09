@@ -9,7 +9,7 @@ namespace AdventOfCode2020
     {
         private static void Main(string[] args)
         {
-            var solution = new Day9.Solution();
+            var solution = new Day1.Solution();
             solution.ExecuteTask();
         }
     }

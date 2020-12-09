@@ -18,7 +18,7 @@ namespace AdventOfCode2020.Day3
             mapLength = map.First().Length;
         }
 
-        public TreesCounter(string mapPath) : this(ReadMap(mapPath))
+        public TreesCounter(string mapPath) : this(File.ReadAllLines(mapPath))
         {
         }
 
@@ -39,15 +39,6 @@ namespace AdventOfCode2020.Day3
 
 
             Console.Out.WriteLine("trees = {0}", trees);
-        }
-
-        private static string[] ReadMap(string mapPath)
-        {
-            string input;
-            using StreamReader sr = new StreamReader(mapPath);
-            input = sr.ReadToEnd();
-
-            return input.Split(new[] {'\r', '\n'}, StringSplitOptions.RemoveEmptyEntries);
         }
 
         public int CountTrees(ICoordinator coordinator)
