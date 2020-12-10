@@ -8,7 +8,7 @@ namespace AdventOfCode2020.Day1
     {
         public void ExecuteTask()
         {
-            string path = @".\Day1\nums.txt";
+            string path = @".\Day01\nums.txt";
             long[] numbers = File.ReadAllLines(path).Select(long.Parse).ToArray();
             long findNumber = 2020;
             long[] result = NumberSearcher.Find2Numbers(numbers, findNumber);

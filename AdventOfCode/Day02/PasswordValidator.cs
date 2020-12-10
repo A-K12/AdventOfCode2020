@@ -8,7 +8,7 @@ namespace AdventOfCode2020.Day2
     {
         public void ExecuteTask()
         {
-            string path = @".\Day2\data.txt";
+            string path = @".\Day02\data.txt";
             string[] lines = File.ReadAllLines(path);
 
             int count = lines.Count(PasswordValidator.ValidateV1);

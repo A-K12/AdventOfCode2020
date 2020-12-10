@@ -9,7 +9,7 @@ namespace AdventOfCode2020.Day4
     {
         public void ExecuteTask()
         {
-            string[] lines = File.ReadAllLines(@".\Day4\data.txt");
+            string[] lines = File.ReadAllLines(@".\Day04\data.txt");
 
             Regex[] regexesPart1 = new Regex[]
             {

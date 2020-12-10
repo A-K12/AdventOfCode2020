@@ -9,7 +9,7 @@ namespace AdventOfCode2020.Day5
     {
         public void ExecuteTask()
         {
-            string path = @".\Day5\data.txt";
+            string path = @".\Day05\data.txt";
             string input = File.ReadAllText(path);
             HashSet<int> ids = input.Replace('F', '0')
                 .Replace('B', '1')

@@ -12,7 +12,7 @@ namespace AdventOfCode2020.Day7
     {
         public void ExecuteTask()
         {
-            const string path = @".\Day7\data.txt";
+            const string path = @".\Day07\data.txt";
             string[] lines=File.ReadAllLines(path);
 
             Regex regex = new Regex(@"(?:(\w+ \w+) bags contain(?: ([0-9]+) (\w+ \w+) bag(?:s)?[,.]| no other bags.)+)");

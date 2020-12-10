@@ -9,7 +9,7 @@ namespace AdventOfCode2020.Day9
     {
         public void ExecuteTask()
         {
-            const string path = @".\Day9\data.txt";
+            const string path = @".\Day09\data.txt";
             long[] numbers = File.ReadAllLines(path).Select(s => long.Parse(s)).ToArray();
 
             int index = FindIndex(25, numbers);

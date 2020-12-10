@@ -9,7 +9,7 @@ namespace AdventOfCode2020.Day6
     {
         public void ExecuteTask()
         {
-            const string path = @".\Day6\data.txt";
+            const string path = @".\Day06\data.txt";
             string input = File.ReadAllText(path);
 
             IEnumerable<string[]> answers = input.Split("\r\n\r\n")

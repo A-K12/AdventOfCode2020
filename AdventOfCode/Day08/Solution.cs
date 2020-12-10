@@ -13,7 +13,7 @@ namespace AdventOfCode2020.Day8
     {
         public void ExecuteTask()
         {
-            const string path = @".\Day8\data.txt";
+            const string path = @".\Day08\data.txt";
             string[] lines = File.ReadAllLines(path);
             HashSet<int> check = new HashSet<int>();
 
