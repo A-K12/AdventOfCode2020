@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace AdventOfCode2020.Day11
 {
@@ -11,31 +15,44 @@ namespace AdventOfCode2020.Day11
             const string path = @".\Day11\data.txt";
             char[][] oldLayout = File.ReadAllLines(path).Select(s => s.ToCharArray()).ToArray();
             char[][] newLayout = new char[oldLayout.Length][];
+
+            int x = 0;
+            int y = 0;
+            int max_x = oldLayout.Length;
+            int max_y = oldLayout.First().Length;
+           
+
+
             int column = oldLayout.First().Length;
             bool wasChange = true;
             while(wasChange)
             {
                 wasChange = false;
-                string pastLine = oldLayout.Select(chars => new string(chars)).Aggregate((a, b) => a + '\n' + b);
-                Console.Out.WriteLine("-----------------\n\n");
                 for (int i = 0; i < oldLayout.Length; i++)
                 {
                     newLayout[i] = new char[column];
                     for (int j = 0; j < column; j++)
                     {
-                        switch (oldLayout[i][j])
+                        if(oldLayout[i][j]=='.')
                         {
-                            case 'L':
-                                newLayout[i][j] = FirstRuleTask1(i, j, oldLayout) ? '#' : 'L';
-                                wasChange = true;
-                                break;
-                            case '#':
-                                newLayout[i][j] = SecondRuleTask1(i, j, oldLayout) ? 'L' : '#';
-                                wasChange = true;
-                                break;
-                            default:
-                                newLayout[i][j] = '.';
-                                break;
+                            newLayout[i][j] = '.';
+                            continue;
+                        }
+                        char[] adjacentElements = GetNearestElements(i, j, oldLayout);
+                        int occupiedSeat = adjacentElements.Count(c => c == '#');
+                        if (occupiedSeat == 0&& oldLayout[i][j]=='L')
+                        {
+                            newLayout[i][j] = '#';
+                            wasChange = true;
+                        }
+                        else if (occupiedSeat >= 5 && oldLayout[i][j] == '#')
+                        {
+                            newLayout[i][j] = 'L';
+                            wasChange = true;
+                        }
+                        else
+                        {
+                            newLayout[i][j] = oldLayout[i][j];
                         }
                     }
                 }
@@ -45,155 +62,74 @@ namespace AdventOfCode2020.Day11
                 newLayout = new char[oldLayout.Length][];
 
             }
-            string newLine = oldLayout.Select(chars => new string(chars)).Aggregate((a, b) => a + '\n' + b);
-            int count = newLine.Count(c => c == '#');
+            
+            int count = oldLayout.Sum(c => c.Count(s => s=='#'));
             Console.Out.WriteLine("count = {0}", count);
         }
 
-        public bool FirstRuleTask1(int n, int m, char[][] lines)
+        private void WriteToConsole(char[][] array)
         {
-            var left = new char?[]
-            {
-                GetStatus(n - 1, m, lines),
-                GetStatus(n - 1, m - 1, lines),
-                GetStatus(n - 1, m + 1, lines),
-                GetStatus(n + 1, m + 1, lines),
-                GetStatus(n + 1, m - 1, lines),
-                GetStatus(n + 1, m, lines),
-                GetStatus(n, m - 1, lines),
-                GetStatus(n, m + 1, lines),
-            };
-
-            return left.Count(c => c == '#')>=4;
-
-        }
-        
-        public bool SecondRuleTask1(int n, int m, char[][] lines)
-        {
-            var left = new char?[]
-            {
-                GetStatus1(n, m, lines, arrou.down),
-                GetStatus1(n, m, lines,arrou.downLeft),
-                GetStatus1(n, m, lines,arrou.downRight),
-                GetStatus1(n, m, lines, arrou.left),
-                GetStatus1(n, m, lines, arrou.right),
-                GetStatus1(n, m, lines, arrou.up),
-                GetStatus1(n, m, lines, arrou.upLeft),
-                GetStatus1(n, m, lines, arrou.upRight),
-            };
-
-            return left.Count(c => c == '#')>=5;
-
+            string pastLine = array.Select(chars => new string(chars)).Aggregate((a, b) => a + '\n' + b);
+            Console.Out.WriteLine("-----------------\n");
         }
 
-
-        public bool IsFreeSpace(int n, int m, char[][] lines)
+        public static T[] GetAdjacentElements<T>(int x, int y, T[][] array)
         {
-            var left = new char?[]
+            List<T> result = new List<T>(8);
+            for (int dx = (x > 0 ? -1 : 0); dx <= (x < array.Length-1 ? 1 : 0); ++dx)
             {
-                GetStatus(n - 1, m, lines),
-                GetStatus(n - 1, m - 1, lines),
-                GetStatus(n, m - 1, lines),
-                GetStatus(n + 1, m, lines),
-                GetStatus(n + 1, m + 1, lines),
-                GetStatus(n, m + 1, lines),
-                GetStatus(n - 1, m + 1, lines),
-                GetStatus(n + 1, m - 1, lines),
-            };
-
-            
-            return left.All(c => c != '#');
-        }
-
-        public bool FirstRuleTask2(int n, int m, char[][] lines)
-        {
-            var left = new char?[]
-            {
-                GetStatus1(n, m, lines, arrou.down),
-                GetStatus1(n, m, lines,arrou.downLeft),
-                GetStatus1(n, m, lines,arrou.downRight),
-                GetStatus1(n, m, lines, arrou.left),
-                GetStatus1(n, m, lines, arrou.right),
-                GetStatus1(n, m, lines, arrou.up),
-                GetStatus1(n, m, lines, arrou.upLeft),
-                GetStatus1(n, m, lines, arrou.upRight),
-            };
-
-            
-            return left.All(c => c != '#');
-        }
-
-
-        public char? GetStatus(int n, int m, char[][] lines)
-        {
-            if (n < 0 || m < 0 || n >= lines.Length || m >= lines.First().Length)
-            {
-                return null;
-            }
-
-            return lines[n][m];
-        }
-
-        public char? GetStatus1(int n, int m, char[][] lines, arrou arrou)
-        {
-            int m1 = m;
-            int n1 = n;
-            while (n1 >= 0 && m1 >= 0 && n1 < lines.Length && m1 < lines.First().Length)
-            {
-                switch (arrou)
+                for (int dy = (y > 0 ? -1 : 0); dy <= (y < array.First().Length-1? 1 : 0); ++dy)
                 {
-                    case arrou.left: 
-                        m1--;
-                        break;
-                    case arrou.right:
-                        m1++;
-                        break;
-                    case arrou.up:
-                        n1++;
-                        break;
-                    case arrou.down:
-                        n1--;
-                        break;
-                    case arrou.downLeft:
-                        n1--;
-                        m1--;
-                        break;
-                    case arrou.upLeft:
-                        m1--;
-                        n1++;
-                        break;
-                    case arrou.downRight:
-                        n1--;
-                        m1++;
-                        break;
-                    case arrou.upRight:
-                        n1++;
-                        m1++;
-                        break;
-                }
-
-                char? tempLetter = GetStatus(n1, m1, lines);
-                if (tempLetter != '.' && tempLetter != null)
-                {
-                    return tempLetter;
+                    if (dx != 0 || dy != 0)
+                    {
+                        result.Add(array[x + dx][y + dy]);
+                    }
                 }
             }
 
-            return null;
+            return result.ToArray();
         }
 
-        
-    }
+        public char[] GetNearestElements(int x, int y, char[][] array)
+        {
+            int[][] directions = new int[8][]
+            {
+                new int[]{1,1}, 
+                new int[]{1,0},
+                new int[]{0,1},
+                new int[]{-1,0},
+                new int[]{0,-1},
+                new int[]{-1,-1},
+                new int[]{-1,1},
+                new int[]{1,-1},
+            };
+            List<char> result = new List<char>(8);
+            foreach(int[] direction in directions)
+            {
+                char symbol = GetNearestElement(x, y, array, direction);
+                if(symbol==default) continue;
+                result.Add(symbol);
+            }
 
-    public enum arrou
-    {
-        up,
-        down,
-        left,
-        right,
-        upRight,
-        downRight,
-        upLeft,
-        downLeft
+            return result.ToArray();
+        }
+
+        public char GetNearestElement(int x, int y, char[][] array, int[] direction)
+        {
+            char symbol = default;
+            while (true)
+            {
+                x += direction[0];
+                y += direction[1];
+
+               if (x < 0 || y < 0 || x >= array.Length || y >= array.First().Length) break;
+               symbol = array[x][y];
+               if (symbol == 'L' || symbol == '#') break;
+            }
+
+            return symbol;
+        }
+
+
     }
 }
