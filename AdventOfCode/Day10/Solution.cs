@@ -12,30 +12,33 @@ namespace AdventOfCode2020.Day10
             int[] numbers = File.ReadAllLines(path).Select(s => int.Parse(s)).ToArray();
 
             Array.Sort(numbers);
-            int startJoint = 0;
-            int[] differents = new int[4];
 
-            for (int i = 0; i < numbers.Length; i++)
+            int[] differences = new int[3];
+            int currentJoltage = 0;
+            foreach (int number in numbers)
             {
-                int dif =  i-startJoint;
-                differents[dif]++;
-                startJoint = i;
+                int difference =  number-currentJoltage;
+                currentJoltage = number;
+                differences[difference-1]++;
             }
+            differences[2]++;
 
-            differents[3]++;
-            Console.Out.WriteLine("Answer 1 = {0}", differents[1]*differents[3]);
+            Console.Out.WriteLine("Answer 1 = {0}", differences[0]*differences[2]);
 
             
             long[] map = new long[numbers.Max()+1];
-            map[0]++;
-            foreach (int number in numbers)
+            map[0]=1;
+            foreach (int lastNum in numbers)
             {
-                int first = number - 3;
-                first = first < 0 ? 0 : first;
-                map[number] = map[first..number].Sum();
+                int firstNum = lastNum - 3;
+                firstNum = firstNum < 0 ? 0 : firstNum;
+                map[lastNum] = map[firstNum..lastNum].Sum();
             }
 
             Console.Out.WriteLine("Answer 2 = {0}", map.Last());
         }
+
+
+
     }
 }

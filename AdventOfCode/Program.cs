@@ -9,7 +9,8 @@ namespace AdventOfCode2020
     {
         private static void Main(string[] args)
         {
-            var solution = new Day10.Solution();
+            char[] tst = new[] {'.', 'L', '#'};
+            var solution = new Day11.Solution();
             solution.ExecuteTask();
         }
     }
