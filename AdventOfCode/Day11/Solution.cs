@@ -16,13 +16,6 @@ namespace AdventOfCode2020.Day11
             char[][] oldLayout = File.ReadAllLines(path).Select(s => s.ToCharArray()).ToArray();
             char[][] newLayout = new char[oldLayout.Length][];
 
-            int x = 0;
-            int y = 0;
-            int max_x = oldLayout.Length;
-            int max_y = oldLayout.First().Length;
-           
-
-
             int column = oldLayout.First().Length;
             bool wasChange = true;
             while(wasChange)

@@ -11,7 +11,7 @@ namespace AdventOfCode2020
         {
             char[] tst = new[] {'.', 'L', '#'};
            // var test = (char?)tst.GetValue(-1);
-            var solution = new Day11.Solution();
+            var solution = new Day12.Solution();
             solution.ExecuteTask();
         }
     }
