@@ -11,11 +11,10 @@ namespace AdventOfCode2020.Day15
         public void ExecuteTask()
         {
             const string path = @".\Day15\data.txt";
-            int[] numbers = File.ReadAllText(path).Split(',').Select(int.Parse).ToArray();
-                
+            int[] numbers = File.ReadAllText(path).Split(',').Select(int.Parse).ToArray(); 
 
             Console.Out.WriteLine("Answer 1 = {0}", FindNumberInPosition(numbers, 2020));
-            Console.Out.WriteLine("Answer 1 = {0}", FindNumberInPosition(numbers, 30000000));
+            Console.Out.WriteLine("Answer 2 = {0}", FindNumberInPosition(numbers, 30000000));
         }
 
 
