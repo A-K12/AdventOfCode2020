@@ -51,7 +51,7 @@ namespace AdventOfCode2020.Day16
                         (index >= rules[i].r[0] && rules[i].r[1] >= index))&&(!usedColumn.Contains(tuple.Item2)))).ToArray();
                     if (match.Length != 1) continue;
                     rightLocation[i] = match[0].Item2;
-                    usedColumn.Add(match[0].Item2);
+                    bool add = usedColumn.Add(match[0].Item2);
                 }
             }
 
