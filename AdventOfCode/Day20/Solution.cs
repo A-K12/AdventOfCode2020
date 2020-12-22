@@ -20,7 +20,6 @@ namespace AdventOfCode2020.Day20
             
             foreach (string tile in tiles)
             {
-                
                 string[] parsedTile = tile.Split("\r\n");
                 string tileName = parsedTile[0].Substring(5, 4);
                 string up = parsedTile[1];

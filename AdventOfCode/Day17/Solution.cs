@@ -14,8 +14,6 @@ namespace AdventOfCode2020.Day17
             
 
         }
-
-        
     }
 
 }
