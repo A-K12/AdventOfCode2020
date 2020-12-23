@@ -16,4 +16,13 @@ namespace AdventOfCode2020.Day17
         }
     }
 
+
+    public class Cell
+    {
+        private int[] coordinates;
+        private int dim;
+
+
+    }
+
 }
