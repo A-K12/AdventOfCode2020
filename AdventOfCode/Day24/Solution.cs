@@ -25,7 +25,7 @@ namespace AdventOfCode2020.Day24
                 {
                     int len = (coord[i] == 's' || coord[i] == 'n') ? 2 : 1;
                     string command = coord.Substring(i, len);
-                    nextTile += GeyOffsets(command);
+                    nextTile += GetOffsets(command);
                     i += len;
                 }
 
@@ -34,16 +34,7 @@ namespace AdventOfCode2020.Day24
 
             Console.Out.WriteLine("Answer 1 = {0}", tiles.Values.Count(b => b));
 
-            Vector3[] sw = new Vector3[]
-            {
-                new Vector3(1, 0, -1),
-                new Vector3(1, -1, 0),
-                new Vector3(0, -1, 1),
-                new Vector3(-1, 0, 1),
-                new Vector3(-1, 1, 0),
-                new Vector3(0, 1, -1),
-            };
-
+           
             for (int i = 0; i < 100; i++)
             {
                 Dictionary<Vector3, int> newDay = new Dictionary<Vector3, int>();
@@ -54,7 +45,7 @@ namespace AdventOfCode2020.Day24
                     {
                         newDay[key] = 0;
                     }
-                    foreach (Vector3 v in sw)
+                    foreach (Vector3 v in offsets)
                     {
                         Vector3 adjacent = key + v;
                         if (newDay.ContainsKey(adjacent))
@@ -91,17 +82,26 @@ namespace AdventOfCode2020.Day24
             Console.Out.WriteLine("Answer 2 = {0}", tiles.Count(pair => pair.Value));
         }
 
-        public Vector3 GeyOffsets(string coords) => coords switch
+        public Vector3 GetOffsets(string coords) => coords switch
         {
-            "e" => new Vector3(1,0,-1),
-            "se" => new Vector3(1,-1, 0),
-            "sw" => new Vector3(0, -1, 1),
-            "w" => new Vector3(-1,0,1),
-            "nw" => new Vector3(-1,1,0),
-            "ne" => new Vector3(0,1,-1),
+            "e" => offsets[0],
+            "se" => offsets[1],
+            "sw" => offsets[2],
+            "w" => offsets[3],
+            "nw" => offsets[4],
+            "ne" => offsets[5],
             _ => throw new System.NotImplementedException()
         };
 
+       private Vector3[] offsets = new Vector3[]
+        {
+            new Vector3(1, 0, -1),
+            new Vector3(1, -1, 0),
+            new Vector3(0, -1, 1),
+            new Vector3(-1, 0, 1),
+            new Vector3(-1, 1, 0),
+            new Vector3(0, 1, -1),
+        };
 
     }
 }
